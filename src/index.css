@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+label,
+input,
+p {
+  font-size: 12px !important;
+}
+.form-text {
+  margin-top: 0.4rem !important;
+  font-size: 0.7rem !important;
+}
