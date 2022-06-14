@@ -57,7 +57,6 @@ const CustomerDetail = () => {
   const handleClickApproved = (e) => {
     const id = e.target.id;
     dispatch(setApproveCurrentPropery({ id, approved: true }));
-    console.log(id);
   };
   const handleClickDisApproved = (e) => {
     const id = e.target.id;
@@ -72,11 +71,16 @@ const CustomerDetail = () => {
               Name
             </Form.Label>
             <Col xs={6}>
-              <p
-                className={!currentCustomer.firstName.approved && 'text-danger'}
-              >
-                {currentCustomer.firstName.value}
-              </p>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.firstName.approved}
+                isValid={currentCustomer.firstName.approved}
+                defaultValue={currentCustomer.firstName.value}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
@@ -98,11 +102,16 @@ const CustomerDetail = () => {
               Family Name
             </Form.Label>
             <Col xs={6}>
-              <p
-                className={!currentCustomer.lastName.approved && 'text-danger'}
-              >
-                {currentCustomer.lastName.value}
-              </p>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.lastName.approved}
+                isValid={currentCustomer.lastName.approved}
+                defaultValue={currentCustomer.lastName.value}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
@@ -124,9 +133,16 @@ const CustomerDetail = () => {
               Mobile
             </Form.Label>
             <Col xs={6}>
-              <p className={!currentCustomer.mobile.approved && 'text-danger'}>
-                {currentCustomer.mobile.value}
-              </p>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.mobile.approved}
+                isValid={currentCustomer.mobile.approved}
+                defaultValue={currentCustomer.mobile.value}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
@@ -148,9 +164,16 @@ const CustomerDetail = () => {
               ID No
             </Form.Label>
             <Col xs={6}>
-              <p className={!currentCustomer.id.approved && 'text-danger'}>
-                {currentCustomer.id.value}
-              </p>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.id.approved}
+                isValid={currentCustomer.id.approved}
+                defaultValue={currentCustomer.id.value}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
@@ -172,11 +195,16 @@ const CustomerDetail = () => {
               Birth date
             </Form.Label>
             <Col xs={6}>
-              <p
-                className={!currentCustomer.birthDate.approved && 'text-danger'}
-              >
-                {currentCustomer.birthDate.value}
-              </p>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.birthDate.approved}
+                isValid={currentCustomer.birthDate.approved}
+                defaultValue={currentCustomer.birthDate.value}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
@@ -198,9 +226,16 @@ const CustomerDetail = () => {
               Address
             </Form.Label>
             <Col xs={6}>
-              <p className={!currentCustomer.address.approved && 'text-danger'}>
-                {currentCustomer.address.value}
-              </p>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.address.approved}
+                isValid={currentCustomer.address.approved}
+                defaultValue={currentCustomer.address.value}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
@@ -221,7 +256,7 @@ const CustomerDetail = () => {
             <Form.Label column xs={3}>
               Profile Pic
             </Form.Label>
-            <Col xs={6}>
+            <Col xs={4}>
               <StyleImageUploader>
                 <StyleImageLabel
                   style={{
@@ -229,6 +264,17 @@ const CustomerDetail = () => {
                   }}
                 />
               </StyleImageUploader>
+            </Col>
+            <Col xs={2}>
+              <Form.Control
+                readOnly
+                isInvalid={!currentCustomer.profilePic.approved}
+                isValid={currentCustomer.profilePic.approved}
+                style={{
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }}
+              />
             </Col>
             <Col xs={3}>
               <StyleIconContainer>
