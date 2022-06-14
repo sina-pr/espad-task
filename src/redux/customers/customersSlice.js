@@ -48,6 +48,7 @@ export const customersSlice = createSlice({
       const { data, loading } = action.payload;
       state.customersList.loading = loading;
       state.customersList.data = data;
+      state.pinnedCustomers = [];
     },
     setSelectedUser: (state, action) => {
       const selectedUserId = action.payload;
