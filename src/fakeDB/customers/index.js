@@ -1,5 +1,4 @@
 import {
-  CUSTOMERS_API,
   CUSTOMERS_LIST,
   SINGLE_CUSTOMER,
   UPDATE_CUSTOMER,
@@ -41,7 +40,7 @@ mock.onGet(CUSTOMERS_LIST).reply(200, data);
 mock.onGet(SINGLE_CUSTOMER).reply((config) => {
   console.log(config);
   const { id } = config;
-  const user = data.find((i) => i.id == id);
+  const user = data.find((i) => i.id === +id);
 
   return [200, user];
 });
