@@ -1,6 +1,9 @@
 import useHttpRequest from '../../hooks/useHttpRequest';
 import { useEffect, useState } from 'react';
-import { CUSTOMERS_LIST } from '../../configs/constantApi';
+import {
+  CUSTOMERS_LIST,
+  CUSTOMER_LIST_SEARCH,
+} from '../../configs/constantApi';
 import Card from '../../uiKits/card/Card';
 import { Row, Col, Container } from 'react-bootstrap';
 import FabWidget from '../../uiKits/float_button/FabWidget';
@@ -16,6 +19,7 @@ import {
   setAllSectedUser,
   setSelectedUser,
   removeAllSelectedUser,
+  getCustomersWithFilter,
 } from '../../redux/customers/customersSlice';
 
 const Customers = () => {
@@ -24,7 +28,7 @@ const Customers = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isAllSelected, setIsAllSelected] = useState(false);
-
+  const [searchValue, setSearchValue] = useState('');
   const CustomresStore = useSelector((state) => state.Customers);
   useEffect(() => {
     getRequest(CUSTOMERS_LIST).then((result) => {
@@ -56,9 +60,19 @@ const Customers = () => {
       : dispatch(removeAllSelectedUser());
     setIsAllSelected(!isAllSelected);
   };
+  const getDataWithSearch = (val) => {
+    dispatch(getCustomersWithFilter({ searchVal: val }));
+  };
   return (
     <Container>
-      <Searchbar placeholder='Search customer...' />
+      <Searchbar
+        placeholder='Search customer...'
+        onChange={(e) => {
+          const searchValue = e.target.value;
+          setSearchValue(searchValue);
+          getDataWithSearch(searchValue);
+        }}
+      />
       <ToolsContainer className='py-1'>
         <input
           type='checkbox'
@@ -87,22 +101,39 @@ const Customers = () => {
               />
             </Col>
           ))}
-        {CustomresStore.customersList.data.length > 0 &&
-          CustomresStore.customersList.data.map((customer) => (
-            <Col xs={12} sm={12} md={6} lg={6}>
-              <Card
-                id={customer.id}
-                firstName={customer.firstName}
-                lastName={customer.lastName}
-                imgSrc={customer.profilePic}
-                birthDate={customer.birthDate}
-                verified={customer.verified}
-                handlePinUser={handlePinUser}
-                handleUnPinUser={handleUnPinUser}
-                pinned={false}
-              />
-            </Col>
-          ))}
+        {searchValue
+          ? CustomresStore.filteredCustomerList.length > 0 &&
+            CustomresStore.filteredCustomerList.map((customer) => (
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Card
+                  id={customer.id}
+                  firstName={customer.firstName}
+                  lastName={customer.lastName}
+                  imgSrc={customer.profilePic}
+                  birthDate={customer.birthDate}
+                  verified={customer.verified}
+                  handlePinUser={handlePinUser}
+                  handleUnPinUser={handleUnPinUser}
+                  pinned={false}
+                />
+              </Col>
+            ))
+          : CustomresStore.customersList.data.length > 0 &&
+            CustomresStore.customersList.data.map((customer) => (
+              <Col xs={12} sm={12} md={6} lg={6}>
+                <Card
+                  id={customer.id}
+                  firstName={customer.firstName}
+                  lastName={customer.lastName}
+                  imgSrc={customer.profilePic}
+                  birthDate={customer.birthDate}
+                  verified={customer.verified}
+                  handlePinUser={handlePinUser}
+                  handleUnPinUser={handleUnPinUser}
+                  pinned={false}
+                />
+              </Col>
+            ))}
       </Row>
       <FabWidget onClick={handleClickAddIcon} />
     </Container>

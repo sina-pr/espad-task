@@ -37,6 +37,7 @@ const initialState = {
     data: [],
     loading: true,
   },
+  filteredCustomerList: [],
 };
 
 export const customersSlice = createSlice({
@@ -128,6 +129,25 @@ export const customersSlice = createSlice({
       console.log(current(state.currentCustomer['firstName']));
       state.currentCustomer[id].approved = approved;
     },
+    getCustomersWithFilter: (state, action) => {
+      const searchResults = [];
+      const { searchVal } = action.payload;
+      const allCustomers = state.customersList.data;
+      const searchValArr = searchVal.toLowerCase().split('');
+
+      allCustomers.forEach((i) => {
+        let firstNameArr = i.firstName.toLowerCase().split('');
+        let lastNameArr = i.lastName.toLowerCase().split('');
+        console.log(firstNameArr, lastNameArr, searchValArr);
+        searchValArr.every((ch, index) => {
+          if (firstNameArr[index] === ch || lastNameArr[index] === ch) {
+            searchResults.push(i);
+            return false;
+          }
+        });
+      });
+      state.filteredCustomerList = searchResults;
+    },
   },
 });
 
@@ -139,6 +159,7 @@ export const {
   setAllCustomers,
   setCurrentUser,
   setApproveCurrentPropery,
+  getCustomersWithFilter,
 } = customersSlice.actions;
 
 export default customersSlice.reducer;
